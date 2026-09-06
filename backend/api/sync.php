@@ -1,6 +1,6 @@
 <?php
 /**
- * Prompteg Cloud Backend - Full Mobile App Sync Endpoint
+ * promptly Cloud Backend - Full Mobile App Sync Endpoint
  * Returns all active categories, prompts, and global settings for the mobile app.
  */
 require_once __DIR__ . '/../includes/auth.php';

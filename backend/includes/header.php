@@ -41,7 +41,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
           <div class="w-9 h-9 rounded-xl bg-orange-600 flex items-center justify-center text-black font-black text-lg shadow-lg shadow-orange-600/30 shrink-0">P</div>
           <div class="shrink-0">
             <div class="flex items-center space-x-2">
-              <span class="text-base font-extrabold text-orange-500 tracking-wider mono shrink-0 whitespace-nowrap">PROMPTEG</span>
+              <span class="text-base font-extrabold text-orange-500 tracking-wider mono shrink-0 whitespace-nowrap">promptly</span>
               <span class="text-[10px] font-extrabold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded mono shrink-0 whitespace-nowrap">ADMIN</span>
             </div>
             <p class="text-[10px] text-gray-400 mono shrink-0 whitespace-nowrap">CLOUD MASTER HUB v<?= APP_VERSION ?></p>

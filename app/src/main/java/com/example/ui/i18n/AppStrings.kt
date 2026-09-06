@@ -12,7 +12,7 @@ import com.example.data.model.PromptCategory
 
 /**
 
- * Complete UI Translations Data Structure for Prompteg AI Prompt Hub
+ * Complete UI Translations Data Structure for promptly AI Prompt Hub
 
  */
 
@@ -163,7 +163,7 @@ open class AppLanguageStrings(
   open val vaultEmptySub: String = "Synthesize blueprints in the Studio or craft custom prompts to save them here."
   open val openDetail: String = "DETAIL"
   open val noHistory: String = "No Copy History"
-  open val noHistorySub: String = "When you copy prompt formulas from Prompteg, they will be logged here for quick retrieval."
+  open val noHistorySub: String = "When you copy prompt formulas from promptly, they will be logged here for quick retrieval."
   open val recentCopied: String = "RECENTLY COPIED PROMPTS"
   open val clearHistory: String = "CLEAR HISTORY"
   open val copyAgain: String = "COPY AGAIN"
@@ -249,7 +249,7 @@ open class AppLanguageStrings(
 
   // Admin Panel Hub & Auth
 
-  open val adminHubTitle: String = "PROMPTEG ADMIN HUB"
+  open val adminHubTitle: String = "promptly ADMIN HUB"
   open val adminAuthFullControl: String = "AUTHENTICATED // FULL CONTROL"
   open val adminSecurityLocked: String = "SECURITY LOCKED // ENTER PIN"
   open val adminRootActive: String = "ROOT ACTIVE"
@@ -406,7 +406,7 @@ open class AppLanguageStrings(
   open val apiAccessLink: String = "API Documentation"
   open val contactSupportLink: String = "Contact Support"
   open val watermarkToolLink: String = "Watermark Remover"
-  open val copyrightText: String = "© 2026 Prompteg AI. All rights reserved."
+  open val copyrightText: String = "© 2026 promptly AI. All rights reserved."
   open val contactSubmitBtn: String = "Send Message"
   open val emailPlaceholder: String = "Your email address"
   open val messagePlaceholder: String = "Describe your question or feedback..."
@@ -437,7 +437,7 @@ open class AppLanguageStrings(
   open val footerTrustPrivacy: String = "Privacy Policy"
   open val footerTrustTerms: String = "Terms of Service"
   open val footerTrustDmca: String = "DMCA & Disclaimer"
-  open val footerCopyright: String = "© 2026 Prompteg - AI Photo Editing Prompts Library. All rights reserved."
+  open val footerCopyright: String = "© 2026 promptly - AI Photo Editing Prompts Library. All rights reserved."
 
 
   // Watermark Banner Component & Tool
@@ -491,7 +491,7 @@ open class AppLanguageStrings(
   open val splashSoundOn: String = "SFX ON"
   open val splashSoundOff: String = "SFX MUTED"
   open val splashSkipHint: String = "TAP ANYWHERE TO SKIP"
-  open val profileTierBadge: String = "PROMPTEG PRO // CREATOR TIER"
+  open val profileTierBadge: String = "promptly PRO // CREATOR TIER"
 
 
   // Card & Common

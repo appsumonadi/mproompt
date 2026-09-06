@@ -1,4 +1,4 @@
--- Prompteg AI Prompt Hub - MySQL Database Schema
+-- promptly AI Prompt Hub - MySQL Database Schema
 -- Version: 2.0.0
 -- Compatible with MySQL 5.7+ / MariaDB 10.3+ / PHP 7.4 - 8.3+
 
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `admin_users` (
 
 -- Default admin user: username: admin | password: password123 (Change in admin settings!)
 INSERT INTO `admin_users` (`id`, `username`, `password_hash`, `email`) 
-VALUES (1, 'admin', '$2y$10$eA8gN2V01WwY6Zk6hE8Eru53kXpYf0aQj.lGlnN27O3EwS4f5Vf6q', 'admin@prompteg.ai')
+VALUES (1, 'admin', '$2y$10$eA8gN2V01WwY6Zk6hE8Eru53kXpYf0aQj.lGlnN27O3EwS4f5Vf6q', 'admin@prmtly.com')
 ON DUPLICATE KEY UPDATE `username`=`username`;
 
 -- --------------------------------------------------------
@@ -94,15 +94,15 @@ CREATE TABLE IF NOT EXISTS `settings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `settings` (`key_name`, `value_text`, `description`) VALUES
-('api_secret_key', 'prompteg_secret_key_2026', 'API authentication secret key for mobile sync'),
+('api_secret_key', 'promptly_secret_key_2026', 'API authentication secret key for mobile sync'),
 ('ads_enabled', '1', 'Enable AdMob ads globally in app (1 = enabled, 0 = disabled)'),
 ('banner_ad_unit_id', 'ca-app-pub-3940256099942544/6300978111', 'AdMob Banner Unit ID'),
 ('interstitial_ad_unit_id', 'ca-app-pub-3940256099942544/1033173712', 'AdMob Interstitial Unit ID'),
 ('interstitial_frequency', '3', 'Show interstitial every X copies'),
 ('announcement_enabled', '1', 'Show announcement banner across the app'),
-('announcement_text', '🚀 Prompteg 2026 Cloud Sync Active! 500+ New Midjourney v6 & FLUX Blueprints available.', 'Global announcement broadcast message'),
+('announcement_text', '🚀 promptly 2026 Cloud Sync Active! 500+ New Midjourney v6 & FLUX Blueprints available.', 'Global announcement broadcast message'),
 ('app_version', '2.0.0', 'Current cloud database revision version'),
-('server_name', 'Prompteg Master Backend', 'Server label')
+('server_name', 'promptly Master Backend', 'Server label')
 ON DUPLICATE KEY UPDATE `value_text`=VALUES(`value_text`);
 
 SET FOREIGN_KEY_CHECKS = 1;

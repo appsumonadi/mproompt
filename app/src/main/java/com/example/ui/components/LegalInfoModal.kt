@@ -178,13 +178,13 @@ fun LegalInfoModal(
 private fun AboutPlatformView() {
   Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
     Text(
-      text = "Welcome to Prompteg",
+      text = "Welcome to promptly",
       color = OrangePrimary,
       fontWeight = FontWeight.Bold,
       fontSize = 16.sp
     )
     Text(
-      text = "Prompteg is a next-generation AI prompt engineering platform and creative utility for designers, creators, and developers working with Midjourney, Gemini, ChatGPT-4o, Flux.1, and SDXL.",
+      text = "promptly is a next-generation AI prompt engineering platform and creative utility for designers, creators, and developers working with Midjourney, Gemini, ChatGPT-4o, Flux.1, and SDXL.",
       color = TextMuted,
       fontSize = 13.5.sp,
       lineHeight = 20.sp
@@ -231,7 +231,7 @@ private fun ContactAndSupportView(
       fontSize = 15.sp
     )
     Text(
-      text = "Have questions about prompt engineering, need API support, or want to report an issue? Send us a message or email support@prompteg.ai.",
+      text = "Have questions about prompt engineering, need API support, or want to report an issue? Send us a message or email support@prmtly.com.",
       color = TextMuted,
       fontSize = 13.sp,
       lineHeight = 19.sp
@@ -319,7 +319,7 @@ private fun PrivacyPolicyView() {
       fontSize = 15.sp
     )
     Text(
-      text = "1. Data Collection: Prompteg operates under an offline-first privacy model. Your custom created prompts, favorites, and history logs are stored securely on your local device.",
+      text = "1. Data Collection: promptly operates under an offline-first privacy model. Your custom created prompts, favorites, and history logs are stored securely on your local device.",
       color = TextMuted,
       fontSize = 13.sp,
       lineHeight = 19.sp
@@ -350,7 +350,7 @@ private fun TermsOfServiceView() {
       fontSize = 15.sp
     )
     Text(
-      text = "1. Prompt Usage: Prompts provided in the Prompteg library are free for both personal and commercial creative use.",
+      text = "1. Prompt Usage: Prompts provided in the promptly library are free for both personal and commercial creative use.",
       color = TextMuted,
       fontSize = 13.sp,
       lineHeight = 19.sp
@@ -374,13 +374,13 @@ private fun DmcaDisclaimerView() {
       fontSize = 15.sp
     )
     Text(
-      text = "Prompteg is a prompt engineering library and reference index. Prompt text snippets and model templates are community-shared parameters for generative synthesis.",
+      text = "promptly is a prompt engineering library and reference index. Prompt text snippets and model templates are community-shared parameters for generative synthesis.",
       color = TextMuted,
       fontSize = 13.sp,
       lineHeight = 19.sp
     )
     Text(
-      text = "To submit a copyright or trademark inquiry, please email dmca@prompteg.ai with the relevant prompt ID and documentation for immediate review.",
+      text = "To submit a copyright or trademark inquiry, please email dmca@prmtly.com with the relevant prompt ID and documentation for immediate review.",
       color = TextMuted,
       fontSize = 13.sp,
       lineHeight = 19.sp

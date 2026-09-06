@@ -7,9 +7,20 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -20,7 +31,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.data.model.PromptCategory
 import com.example.ui.components.AdMobInterstitialHelper
@@ -106,6 +122,9 @@ fun PrmtlyApp(viewModel: PromptViewModel) {
   }
 
   var isSplashVisible by remember { mutableStateOf(true) }
+  var showAdminPasswordDialog by remember { mutableStateOf(false) }
+  var adminPasswordInput by remember { mutableStateOf("") }
+  var adminPasswordError by remember { mutableStateOf(false) }
 
   CompositionLocalProvider(LocalAppStrings provides appStrings) {
     if (isSplashVisible) {
@@ -152,7 +171,7 @@ fun PrmtlyApp(viewModel: PromptViewModel) {
                     currentPage = currentPage,
                     pageSize = viewModel.itemsPerPage,
                     adminSettings = adminSettings,
-                    onOpenAdminPanel = { viewModel.openAdminPanel() },
+                    onOpenAdminPanel = { showAdminPasswordDialog = true },
                     onPageChange = { page -> viewModel.setPage(page) },
                     onSearchQueryChange = { query -> viewModel.setSearchQuery(query) },
                     onModelSelect = { model -> viewModel.setModelFilter(model) },
@@ -166,7 +185,7 @@ fun PrmtlyApp(viewModel: PromptViewModel) {
                     onNavigateToGallery = { viewModel.setTab("discover") },
                     onNavigateToFavorites = { viewModel.setTab("profile") },
                     onOpenLegalTopic = { topic -> viewModel.openLegalTopic(topic) },
-                    onSocialClick = { network -> viewModel.copyRawText("https://t.me/prompteg", "$network Link") }
+                    onSocialClick = { network -> viewModel.copyRawText("https://t.me/promptly", "$network Link") }
                   )
                 }
                 "categories" -> {
@@ -234,6 +253,75 @@ fun PrmtlyApp(viewModel: PromptViewModel) {
             isVisible = toastMessage != null,
             modifier = Modifier.align(Alignment.BottomCenter)
           )
+
+          if (showAdminPasswordDialog) {
+            androidx.compose.material3.AlertDialog(
+              onDismissRequest = {
+                showAdminPasswordDialog = false
+                adminPasswordInput = ""
+                adminPasswordError = false
+              },
+              title = {
+                Text("Admin Access Verification", color = com.example.ui.theme.TextMain, fontWeight = FontWeight.Bold)
+              },
+              text = {
+                androidx.compose.foundation.layout.Column(verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp)) {
+                  Text("Enter admin password to unlock master dashboard:", color = com.example.ui.theme.TextMuted, fontSize = 13.sp)
+                  androidx.compose.material3.OutlinedTextField(
+                    value = adminPasswordInput,
+                    onValueChange = {
+                      adminPasswordInput = it
+                      adminPasswordError = false
+                    },
+                    label = { Text("Admin Password", color = com.example.ui.theme.TextMuted) },
+                    singleLine = true,
+                    isError = adminPasswordError,
+                    visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation(),
+                    colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
+                      focusedBorderColor = com.example.ui.theme.OrangePrimary,
+                      unfocusedBorderColor = com.example.ui.theme.DarkCardBorder,
+                      focusedTextColor = com.example.ui.theme.TextMain,
+                      unfocusedTextColor = com.example.ui.theme.TextMain
+                    ),
+                    modifier = Modifier.fillMaxWidth()
+                  )
+                  if (adminPasswordError) {
+                    Text("Incorrect password. Please try again.", color = Color.Red, fontSize = 12.sp)
+                  }
+                }
+              },
+              confirmButton = {
+                androidx.compose.material3.Button(
+                  onClick = {
+                    if (adminPasswordInput == adminSettings.adminPin) {
+                      showAdminPasswordDialog = false
+                      adminPasswordInput = ""
+                      adminPasswordError = false
+                      viewModel.openAdminPanel()
+                    } else {
+                      adminPasswordError = true
+                    }
+                  },
+                  colors = androidx.compose.material3.ButtonDefaults.buttonColors(containerColor = com.example.ui.theme.OrangePrimary)
+                ) {
+                  Text("Unlock", color = Color.Black, fontWeight = FontWeight.Bold)
+                }
+              },
+              dismissButton = {
+                androidx.compose.material3.TextButton(
+                  onClick = {
+                    showAdminPasswordDialog = false
+                    adminPasswordInput = ""
+                    adminPasswordError = false
+                  }
+                ) {
+                  Text("Cancel", color = com.example.ui.theme.TextMuted)
+                }
+              },
+              containerColor = com.example.ui.theme.DarkCardBg,
+              shape = RoundedCornerShape(16.dp)
+            )
+          }
         }
       }
     }

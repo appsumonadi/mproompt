@@ -53,6 +53,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $categoryName = strtoupper(trim($_POST['category_name'] ?? 'SCI_FI'));
         $customCatName = trim($_POST['custom_category_name'] ?? '');
         $imageUrl = trim($_POST['image_url'] ?? '');
+        if (isset($_FILES['image_file']) && $_FILES['image_file']['error'] === UPLOAD_ERR_OK) {
+            $fileTmpPath = $_FILES['image_file']['tmp_name'];
+            $fileName = $_FILES['image_file']['name'];
+            $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+            $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+            if (in_array($fileExtension, $allowedExtensions)) {
+                $newFileName = 'img_' . time() . '_' . mt_rand(1000, 9999) . '.' . $fileExtension;
+                $uploadFileDir = __DIR__ . '/../uploads/';
+                if (!is_dir($uploadFileDir)) { mkdir($uploadFileDir, 0755, true); }
+                $dest_path = $uploadFileDir . $newFileName;
+                if (move_uploaded_file($fileTmpPath, $dest_path)) {
+                    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+                    $host = $_SERVER['HTTP_HOST'];
+                    $scriptPath = dirname(dirname($_SERVER['SCRIPT_NAME']));
+                    $imageUrl = $protocol . $host . rtrim($scriptPath, '/') . '/uploads/' . $newFileName;
+                }
+            }
+        }
         $likesCount = (int)($_POST['likes_count'] ?? 100);
         $copyCount = (int)($_POST['copy_count'] ?? 200);
         $isFeatured = !empty($_POST['is_featured']) ? 1 : 0;
@@ -152,7 +170,7 @@ $categories = $db->query("SELECT * FROM categories ORDER BY display_name ASC")->
     </div>
   <?php endif; ?>
 
-  <form method="POST" class="bg-gray-900 border border-gray-800 rounded-2xl p-6 space-y-6 shadow-xl">
+  <form method="POST" enctype="multipart/form-data" class="bg-gray-900 border border-gray-800 rounded-2xl p-6 space-y-6 shadow-xl">
     <!-- Basic Info -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
@@ -216,15 +234,21 @@ $categories = $db->query("SELECT * FROM categories ORDER BY display_name ASC")->
       </div>
     </div>
 
-    <!-- Image Preview & URL -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-start">
-      <div class="md:col-span-3">
-        <label class="block text-xs font-semibold text-gray-400 mb-1.5 uppercase mono">Cover Image URL (Direct Web Link)</label>
-        <input type="url" name="image_url" id="imageUrlInput" value="<?= htmlspecialchars($prompt['image_url']) ?>" placeholder="https://images.unsplash.com/photo-..." class="w-full bg-gray-950 border border-gray-800 focus:border-orange-500 rounded-xl px-4 py-2.5 text-sm text-gray-200 outline-none font-mono" onchange="document.getElementById('previewImg').src = this.value">
+    <!-- Image Preview & URL / Upload -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-start bg-gray-900/50 p-4 rounded-2xl border border-gray-800">
+      <div class="md:col-span-3 space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1.5 uppercase mono">Cover Image URL (Direct Web Link)</label>
+          <input type="url" name="image_url" id="imageUrlInput" value="<?= htmlspecialchars($prompt['image_url']) ?>" placeholder="https://images.unsplash.com/photo-..." class="w-full bg-gray-950 border border-gray-800 focus:border-orange-500 rounded-xl px-4 py-2.5 text-sm text-gray-200 outline-none font-mono" onchange="document.getElementById('previewImg').src = this.value">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-orange-400 mb-1.5 uppercase mono">Or Upload Image File from Computer</label>
+          <input type="file" name="image_file" accept="image/*" class="w-full bg-gray-950 border border-gray-800 focus:border-orange-500 rounded-xl px-4 py-2 text-sm text-gray-300 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-orange-500 file:text-black hover:file:bg-orange-600 cursor-pointer" onchange="if(this.files[0]){document.getElementById('previewImg').src = URL.createObjectURL(this.files[0]);}">
+        </div>
       </div>
       <div>
         <label class="block text-xs font-semibold text-gray-400 mb-1.5 uppercase mono">Preview</label>
-        <img id="previewImg" src="<?= htmlspecialchars($prompt['image_url']) ?>" alt="Preview" class="w-full h-24 rounded-xl object-cover border border-gray-800 bg-gray-950 shadow-md" onerror="this.src='https://images.unsplash.com/photo-1578632767115-351597cf2477?w=300'">
+        <img id="previewImg" src="<?= htmlspecialchars($prompt['image_url']) ?>" alt="Preview" class="w-full h-32 rounded-xl object-cover border border-gray-800 bg-gray-950 shadow-md" onerror="this.src='https://images.unsplash.com/photo-1578632767115-351597cf2477?w=300'">
       </div>
     </div>
 

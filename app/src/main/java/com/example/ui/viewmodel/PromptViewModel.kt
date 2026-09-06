@@ -474,7 +474,7 @@ class PromptViewModel(application: Application) : AndroidViewModel(application) 
     viewModelScope.launch {
       val json = repository.exportAllDataAsJson()
       val clipboard = getApplication<Application>().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-      val clip = ClipData.newPlainText("Prompteg Export", json)
+      val clip = ClipData.newPlainText("promptly Export", json)
       clipboard.setPrimaryClip(clip)
       showToast("ENTIRE PROMPT VAULT COPIED AS JSON")
     }

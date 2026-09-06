@@ -1,4 +1,4 @@
-# Prompteg PHP Backend - Apache Configuration
+# promptly PHP Backend - Apache Configuration
 <IfModule mod_headers.c>
     Header set Access-Control-Allow-Origin "*"
     Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"

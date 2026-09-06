@@ -4,7 +4,7 @@ import com.example.data.model.PromptItem
 import com.example.data.model.PromptVariable
 
 /**
- * High-performance Prompt Localization Engine for Prompteg.
+ * High-performance Prompt Localization Engine for promptly.
  * Translates prompt titles, descriptions, variable labels, and suggestions across all 15 supported languages.
  */
 data class LocalizedPromptData(

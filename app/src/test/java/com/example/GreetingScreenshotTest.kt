@@ -24,7 +24,7 @@ class GreetingScreenshotTest {
   fun greeting_screenshot() {
     composeTestRule.setContent {
       MyApplicationTheme {
-        Text("Prompteg AI Hub")
+        Text("promptly AI Hub")
       }
     }
 

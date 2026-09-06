@@ -1,6 +1,6 @@
 <?php
 /**
- * Prompteg Cloud Backend - Ping & Health Check Endpoint
+ * promptly Cloud Backend - Ping & Health Check Endpoint
  */
 require_once __DIR__ . '/../includes/db.php';
 
@@ -27,7 +27,7 @@ try {
         'server_time' => time(),
         'server_datetime' => date('Y-m-d H:i:s'),
         'version' => APP_VERSION,
-        'message' => 'Prompteg Master Cloud Backend is operational and reachable!',
+        'message' => 'promptly Master Cloud Backend is operational and reachable!',
         'stats' => [
             'active_prompts' => (int)$promptsCount,
             'active_categories' => (int)$categoriesCount

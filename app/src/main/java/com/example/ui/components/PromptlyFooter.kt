@@ -27,6 +27,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -47,30 +51,48 @@ import com.example.ui.theme.TextMuted
 import com.example.ui.theme.TextSubtle
 
 @Composable
-fun PromptegFooter(
+fun promptlyFooter(
   onNavigateToGallery: () -> Unit,
   onNavigateToFavorites: () -> Unit,
   onOpenWatermarkRemover: () -> Unit,
   onOpenLegalTopic: (String) -> Unit,
   onSocialClick: (String) -> Unit,
+  onTriggerAdmin: () -> Unit = {},
   modifier: Modifier = Modifier
 ) {
   val strings = LocalAppStrings.current
+  var tapCount by remember { mutableStateOf(0) }
+  var lastTapTime by remember { mutableStateOf(0L) }
+
   Column(
     modifier = modifier
       .fillMaxWidth()
       .padding(horizontal = 20.dp, vertical = 24.dp)
-      .testTag("prompteg_footer_section")
+      .testTag("promptly_footer_section")
   ) {
-    // 1. Prompteg Brand Title
+    // 1. promptly Brand Title with 8-tap hidden admin trigger
     Text(
-      text = "Prompteg",
+      text = "promptly",
       style = MaterialTheme.typography.headlineSmall.copy(
         fontWeight = FontWeight.Black,
         fontSize = 24.sp,
         letterSpacing = (-0.5).sp
       ),
-      color = TextMain
+      color = TextMain,
+      modifier = Modifier
+        .clickable {
+          val now = System.currentTimeMillis()
+          if (now - lastTapTime > 2000L) {
+            tapCount = 1
+          } else {
+            tapCount++
+          }
+          lastTapTime = now
+          if (tapCount >= 8) {
+            tapCount = 0
+            onTriggerAdmin()
+          }
+        }
     )
 
     Spacer(modifier = Modifier.height(10.dp))

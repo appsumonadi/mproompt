@@ -61,7 +61,7 @@ import com.example.ui.components.CategoryFilterPill
 import com.example.ui.components.NeonBadge
 import com.example.ui.components.PaginationControl
 import com.example.ui.components.PromptCard
-import com.example.ui.components.PromptegFooter
+import com.example.ui.components.promptlyFooter
 import com.example.ui.components.TrendingPromptCard
 import com.example.ui.components.WatermarkBanner
 import com.example.ui.i18n.LocalAppStrings
@@ -728,9 +728,9 @@ fun DiscoverScreen(
         )
       }
 
-      // 10. Prompteg Brand & Navigation / Trust & Legal Footer
+      // 10. promptly Brand & Navigation / Trust & Legal Footer
       item {
-        PromptegFooter(
+        promptlyFooter(
           onNavigateToGallery = {
             coroutineScope.launch {
               listState.animateScrollToItem(0)
@@ -739,7 +739,8 @@ fun DiscoverScreen(
           onNavigateToFavorites = onNavigateToFavorites,
           onOpenWatermarkRemover = onOpenWatermarkTool,
           onOpenLegalTopic = onOpenLegalTopic,
-          onSocialClick = onSocialClick
+          onSocialClick = onSocialClick,
+          onTriggerAdmin = onOpenAdminPanel
         )
       }
     }

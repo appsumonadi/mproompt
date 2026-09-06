@@ -1,6 +1,6 @@
-# Prompteg AI Prompt Hub - PHP Backend & Web Admin Panel
+# promptly AI Prompt Hub - PHP Backend & Web Admin Panel
 
-This folder contains the complete, production-ready PHP Backend and Admin Panel for the Prompteg AI mobile application.
+This folder contains the complete, production-ready PHP Backend and Admin Panel for the promptly AI mobile application.
 
 ---
 
@@ -14,28 +14,28 @@ This folder contains the complete, production-ready PHP Backend and Admin Panel 
    ```
 3. Enter your MySQL database connection details (host, database name, username, password).
 4. Enter your desired Admin credentials (default `admin` / `admin1234`) and your Mobile API Secret Key.
-5. Click **INSTALL & INITIALIZE PROMPTEG BACKEND**. That's it!
+5. Click **INSTALL & INITIALIZE promptly BACKEND**. That's it!
 
 ---
 
 ### Option 2: Manual MySQL Setup (phpMyAdmin)
 1. Open **phpMyAdmin** on your cPanel / web hosting.
-2. Create a new MySQL database named `prompteg_db` (or any name you prefer).
+2. Create a new MySQL database named `promptly_db` (or any name you prefer).
 3. Click **Import** and upload `backend/database.sql`.
 4. Edit `backend/config.php` with your database credentials:
    ```php
    define('DB_HOST', 'localhost');
-   define('DB_NAME', 'prompteg_db');
+   define('DB_NAME', 'promptly_db');
    define('DB_USER', 'your_db_username');
    define('DB_PASS', 'your_db_password');
-   define('API_SECRET_KEY', 'prompteg_secret_key_2026');
+   define('API_SECRET_KEY', 'promptly_secret_key_2026');
    ```
 
 ---
 
 ## 📱 Connecting with the Android App
 
-1. Open the **Prompteg** Android App.
+1. Open the **promptly** Android App.
 2. Tap the top-right **Admin Security Lock** icon (or access via Settings).
 3. Enter your Admin PIN (default: `1234`).
 4. Switch to the **CLOUD BACKEND** tab.
@@ -45,7 +45,7 @@ This folder contains the complete, production-ready PHP Backend and Admin Panel 
    ```
 6. Enter your **API Secret Key**:
    ```
-   prompteg_secret_key_2026
+   promptly_secret_key_2026
    ```
 7. Tap **TEST CONNECTION**. Once verified, tap **SYNC NOW FROM CLOUD BACKEND**.
 8. All prompts, categories, AdMob unit IDs, and announcements from your PHP website will immediately sync to the mobile app!

@@ -27,7 +27,7 @@ $apiKey = getSetting('api_secret_key', API_SECRET_KEY);
           <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
           <span class="text-xs font-bold text-emerald-400 mono">CLOUD SERVER OPERATIONAL</span>
         </div>
-        <h1 class="text-2xl font-black text-white">Prompteg Master Admin Dashboard</h1>
+        <h1 class="text-2xl font-black text-white">promptly Master Admin Dashboard</h1>
         <p class="text-xs text-gray-400 mt-1">Directly control prompts, taxonomy categories, and AdMob configs rendered in the Android application.</p>
       </div>
       <div class="flex flex-wrap gap-2">

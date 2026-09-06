@@ -81,7 +81,7 @@ fun AdMobBanner(
           } catch (_: Throwable) {
             // Safe fallback view if AdMob is unavailable on current device/emulator
             android.widget.TextView(context).apply {
-              text = "PROMPTEG AI AD NETWORK // LIVE"
+              text = "promptly AI AD NETWORK // LIVE"
               setTextColor(android.graphics.Color.parseColor("#71717A"))
               textSize = 11f
               gravity = android.view.Gravity.CENTER

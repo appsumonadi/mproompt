@@ -1,6 +1,6 @@
 <?php
 /**
- * Prompteg Cloud Backend - Prompts REST API (GET, POST, PUT, DELETE)
+ * promptly Cloud Backend - Prompts REST API (GET, POST, PUT, DELETE)
  */
 require_once __DIR__ . '/../includes/auth.php';
 

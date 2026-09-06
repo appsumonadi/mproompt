@@ -1,6 +1,10 @@
 package com.example.ui.screens.admin
 
+import android.util.Base64
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -38,6 +42,7 @@ import androidx.compose.material.icons.filled.CloudDone
 import androidx.compose.material.icons.filled.CloudSync
 import androidx.compose.material.icons.filled.Link
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.MonetizationOn
 import androidx.compose.material.icons.filled.Refresh
@@ -690,6 +695,25 @@ private fun AdminAddPromptSection(
   var imageUrl by remember { mutableStateOf("") }
   var customParamText by remember { mutableStateOf("--ar 16:9 --v 6.0 --s 750") }
 
+  val imagePickerLauncher = rememberLauncherForActivityResult(
+    contract = ActivityResultContracts.PickVisualMedia()
+  ) { uri ->
+    if (uri != null) {
+      try {
+        val inputStream = context.contentResolver.openInputStream(uri)
+        val bytes = inputStream?.readBytes()
+        inputStream?.close()
+        if (bytes != null) {
+          val base64 = Base64.encodeToString(bytes, Base64.NO_WRAP)
+          imageUrl = "data:image/jpeg;base64,$base64"
+          Toast.makeText(context, "Image uploaded and stored successfully!", Toast.LENGTH_SHORT).show()
+        }
+      } catch (e: Exception) {
+        Toast.makeText(context, "Failed to upload image: ${e.message}", Toast.LENGTH_SHORT).show()
+      }
+    }
+  }
+
   LazyColumn(
     modifier = Modifier
       .fillMaxSize()
@@ -877,20 +901,40 @@ private fun AdminAddPromptSection(
     }
 
     item {
-      OutlinedTextField(
-        value = imageUrl,
-        onValueChange = { imageUrl = it },
-        label = { Text(strings.adminImageUrlLabel, color = TextMuted) },
-        placeholder = { Text(strings.adminImageUrlPlaceholder, color = TextMuted.copy(alpha = 0.5f)) },
-        singleLine = true,
-        colors = OutlinedTextFieldDefaults.colors(
-          focusedBorderColor = OrangePrimary,
-          unfocusedBorderColor = DarkCardBorder,
-          focusedTextColor = TextMain,
-          unfocusedTextColor = TextMain
-        ),
-        modifier = Modifier.fillMaxWidth()
-      )
+      Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+      ) {
+        OutlinedTextField(
+          value = imageUrl,
+          onValueChange = { imageUrl = it },
+          label = { Text(strings.adminImageUrlLabel, color = TextMuted) },
+          placeholder = { Text(strings.adminImageUrlPlaceholder, color = TextMuted.copy(alpha = 0.5f)) },
+          singleLine = true,
+          colors = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = OrangePrimary,
+            unfocusedBorderColor = DarkCardBorder,
+            focusedTextColor = TextMain,
+            unfocusedTextColor = TextMain
+          ),
+          modifier = Modifier.weight(1f)
+        )
+
+        Button(
+          onClick = {
+            imagePickerLauncher.launch(
+              PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+            )
+          },
+          colors = ButtonDefaults.buttonColors(containerColor = OrangePrimary),
+          modifier = Modifier.height(56.dp)
+        ) {
+          Icon(Icons.Filled.CameraAlt, contentDescription = null, tint = Color.Black, modifier = Modifier.size(18.dp))
+          Spacer(modifier = Modifier.width(4.dp))
+          Text("Upload", color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+        }
+      }
     }
 
     if (imageUrl.isNotBlank()) {
@@ -1983,7 +2027,7 @@ private fun AdminBackendSection(
             value = apiKey,
             onValueChange = { apiKey = it },
             label = { Text(strings.adminApiKeyLabel, color = TextMuted) },
-            placeholder = { Text("prompteg_secret_key_2026", color = TextMuted.copy(alpha = 0.4f)) },
+            placeholder = { Text("promptly_secret_key_2026", color = TextMuted.copy(alpha = 0.4f)) },
             singleLine = true,
             colors = OutlinedTextFieldDefaults.colors(
               focusedBorderColor = AccentCyan,
@@ -2154,12 +2198,11 @@ private fun AdminBackendSection(
           Spacer(modifier = Modifier.height(8.dp))
 
           val steps = listOf(
-            "1. Upload the provided '/backend' folder to your web hosting (cPanel public_html/backend).",
-            "2. Open 'https://yourdomain.com/backend/install.php' in your browser for 1-Click database installer.",
-            "3. Or import '/backend/database.sql' into your MySQL database using phpMyAdmin.",
-            "4. Log in to your Web Admin Panel at 'https://yourdomain.com/backend/admin/login.php' (default: admin / admin1234).",
-            "5. Add or edit prompts and categories directly from your browser admin dashboard!",
-            "6. Copy your sync URL 'https://yourdomain.com/backend/api/sync.php' into this app and tap 'SYNC CLOUD VAULT'."
+            "1. Your Hostinger backend is deployed at: https://lightseagreen-sheep-814894.hostingersite.com/",
+            "2. Access web admin panel at: https://lightseagreen-sheep-814894.hostingersite.com/backend/admin/login.php",
+            "3. Cloud Sync endpoint is active at: https://lightseagreen-sheep-814894.hostingersite.com/api/sync.php",
+            "4. Add or edit prompts and categories directly from your browser admin dashboard!",
+            "5. Tap 'SYNC CLOUD VAULT' above to instantly sync all prompts with your hosting server."
           )
 
           steps.forEach { step ->

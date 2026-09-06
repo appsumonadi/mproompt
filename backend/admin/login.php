@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login // Prompteg Admin Hub</title>
+  <title>Login // promptly Admin Hub</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
   <style>body { font-family: 'JetBrains Mono', monospace; }</style>
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div class="max-w-md w-full bg-gray-900 border border-orange-500/40 rounded-2xl p-8 shadow-2xl shadow-orange-950/40">
     <div class="text-center mb-8">
       <div class="w-14 h-14 rounded-2xl bg-orange-600 flex items-center justify-center text-black font-black text-2xl mx-auto mb-3 shadow-lg shadow-orange-600/40">P</div>
-      <h1 class="text-xl font-black text-orange-500 tracking-wider">PROMPTEG ADMIN</h1>
+      <h1 class="text-xl font-black text-orange-500 tracking-wider">promptly ADMIN</h1>
       <p class="text-xs text-gray-400 mt-1">Master Backend & Cloud Prompt Controller</p>
     </div>
 

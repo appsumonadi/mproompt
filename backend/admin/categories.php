@@ -21,6 +21,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $colorHex = trim($_POST['color_hex'] ?? '#FF6B00');
     $accentHex = trim($_POST['accent_hex'] ?? '#00F0FF');
     $bannerUrl = trim($_POST['banner_image_url'] ?? '');
+    if (isset($_FILES['banner_file']) && $_FILES['banner_file']['error'] === UPLOAD_ERR_OK) {
+        $fileTmpPath = $_FILES['banner_file']['tmp_name'];
+        $fileName = $_FILES['banner_file']['name'];
+        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+        if (in_array($fileExtension, $allowedExtensions)) {
+            $newFileName = 'cat_' . time() . '_' . mt_rand(1000, 9999) . '.' . $fileExtension;
+            $uploadFileDir = __DIR__ . '/../uploads/';
+            if (!is_dir($uploadFileDir)) { mkdir($uploadFileDir, 0755, true); }
+            $dest_path = $uploadFileDir . $newFileName;
+            if (move_uploaded_file($fileTmpPath, $dest_path)) {
+                $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+                $host = $_SERVER['HTTP_HOST'];
+                $scriptPath = dirname(dirname($_SERVER['SCRIPT_NAME']));
+                $bannerUrl = $protocol . $host . rtrim($scriptPath, '/') . '/uploads/' . $newFileName;
+            }
+        }
+    }
     $sortOrder = (int)($_POST['sort_order'] ?? 0);
 
     if (empty($id) || empty($displayName)) {
@@ -63,7 +81,7 @@ $categories = $db->query("SELECT * FROM categories ORDER BY sort_order ASC, disp
     <!-- Add/Edit Category Form -->
     <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5 shadow-xl">
       <h2 class="text-sm font-black text-orange-400 mono mb-4 uppercase">CREATE / UPDATE CATEGORY</h2>
-      <form method="POST" class="space-y-3.5">
+      <form method="POST" enctype="multipart/form-data" class="space-y-3.5">
         <div>
           <label class="block text-xs font-semibold text-gray-400 mb-1 mono">Category ID (e.g. SCI_FI, 3D, FASHION)</label>
           <input type="text" name="id" placeholder="CINEMATIC" class="w-full bg-gray-950 border border-gray-800 focus:border-orange-500 rounded-xl px-3 py-2 text-xs text-gray-100 outline-none uppercase font-mono" required>
@@ -104,6 +122,10 @@ $categories = $db->query("SELECT * FROM categories ORDER BY sort_order ASC, disp
         <div>
           <label class="block text-xs font-semibold text-gray-400 mb-1 mono">Banner Image URL</label>
           <input type="url" name="banner_image_url" placeholder="https://images.unsplash.com/..." class="w-full bg-gray-950 border border-gray-800 focus:border-orange-500 rounded-xl px-3 py-2 text-xs text-gray-100 outline-none font-mono">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-orange-400 mb-1 mono">Or Upload Banner Image File</label>
+          <input type="file" name="banner_file" accept="image/*" class="w-full bg-gray-950 border border-gray-800 focus:border-orange-500 rounded-xl px-3 py-2 text-xs text-gray-300 outline-none file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-orange-500 file:text-black hover:file:bg-orange-600 cursor-pointer">
         </div>
 
         <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-black font-black py-2.5 rounded-xl text-xs transition tracking-wider mono mt-2">

@@ -1,0 +1,9 @@
+{
+  "name": "promptly-android-app",
+  "version": "1.0.0",
+  "description": "Obsidian & Orange AI Prompt Library and Generator Studio (Android App)",
+  "private": true,
+  "scripts": {
+    "build": "gradle assembleDebug"
+  }
+}

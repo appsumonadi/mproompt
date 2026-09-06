@@ -491,7 +491,7 @@ fun SplashScreen(
     ) {
       // Tech build identifier
       Text(
-        text = "PROMPTEG // v2.6.4",
+        text = "promptly // v2.6.4",
         style = MaterialTheme.typography.labelSmall.copy(
           fontFamily = FontFamily.Monospace,
           fontSize = 10.sp,

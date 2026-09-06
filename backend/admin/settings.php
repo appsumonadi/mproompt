@@ -49,7 +49,7 @@ $bannerAdUnitId = getSetting('banner_ad_unit_id', 'ca-app-pub-3940256099942544/6
 $interstitialAdUnitId = getSetting('interstitial_ad_unit_id', 'ca-app-pub-3940256099942544/1033173712');
 $interstitialFreq = (int)getSetting('interstitial_frequency', 3);
 $announcementEnabled = getSetting('announcement_enabled', '1') === '1';
-$announcementText = getSetting('announcement_text', '🚀 Prompteg 2026 Cloud Sync Active! 500+ New Midjourney v6 & FLUX Blueprints available.');
+$announcementText = getSetting('announcement_text', '🚀 promptly 2026 Cloud Sync Active! 500+ New Midjourney v6 & FLUX Blueprints available.');
 $apiKey = getSetting('api_secret_key', API_SECRET_KEY);
 ?>
 
